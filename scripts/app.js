@@ -30,7 +30,9 @@ var app = angular
         controllerAs: "contractCtrl"
       })
       .when('/contracts/:id/edit', {
-        templateUrl: 'views/contracts/edit.html'
+        templateUrl: 'views/contracts/edit.html',
+        controller: "editContractController",
+        controllerAs: "editContractCtrl"
       })
       .otherwise({
         redirectTo: '/'

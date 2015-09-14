@@ -7,7 +7,7 @@
   contractControllers.controller('contractsController', ['FURL', "$firebase", function(  Furl, $firebase ){
     // this.contracts = contract.query();
     var url = 'https://solvr.firebaseio.com/';
-    var ref = new Firebase(url)
+    var ref = new Firebase(url);
     var fbContracts = $firebase(ref.child('contracts')).$asArray();
 
     this.contracts = fbContracts;
@@ -27,7 +27,7 @@
         // console.log(contract)
         var url = 'https://solvr.firebaseio.com/';
 
-        var ref = new Firebase(url)
+        var ref = new Firebase(url);
 
         // var ref = new Firebase( FURL ).child("contracts");
 
@@ -39,11 +39,34 @@
         $location.path("/contracts");
       };
   }]);
-  
 
+  // edit controller
+  contractControllers.controller('editContractController', ['$location', '$routeParams', '$firebase', function($location, $routeParams, $firebase){
+      // Connect to Firebase
+      var url = 'https://solvr.firebaseio.com/';
+      var ref = new Firebase(url)
+      // store database recores in local variable as an array
+      var fbContracts = $firebase(ref.child('/contracts')).$asArray();
+      // grab contract's id from route params
+      var contractId = $routeParams.id;
 
+      // Query DB for specified contract
+      this.getContract = function(contractId){
+        return $firebase(ref.child('contracts').child(contractId)).$asObject();
+      };
 
-  // app.controller('contractsController', function($scope){
-  //   $scope.title = "Clean my house";
-  // });
+      // If record with an Id == routeParams.id
+     if(contractId){
+       // attach selectedContract to controller
+       this.selectedContract = this.getContract(contractId);
+     }
+
+     // Take user input and update selectedContract
+     this.updateContract = function(contract){
+       this.selectedContract.$save(contract);
+       $location.path('/contracts');
+     };
+
+  }]);
+
 })();

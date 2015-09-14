@@ -4,13 +4,23 @@
   var problemControllers = angular.module('problemControllers', ['ngRoute'] );
 
   //index controller
-  problemControllers.controller('problemsController', ['Problem', function(){
+  problemControllers.controller('problemsController', function($scope){
     // this.problems = Problem.query();
-  }]);
+    $scope.title = "clean my house 2";
+  });
 
   // show controller
-  problemControllers.controller('problemController', [function(){
-    
+  problemControllers.controller('problemController', [ '$routeParams', function($routeParams){
+      this.problem = {
+        id: $routeParams.id,
+        title: "clean my house"
+      };
+  }]);
+
+  problemControllers.controller('newProblemController', [ function($routeParams){
+      this.createProblem = function(problem){
+        console.log(problem)
+      };
   }]);
 
 

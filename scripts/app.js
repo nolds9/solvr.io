@@ -1,28 +1,33 @@
 'use strict';
 
 var app = angular
-  .module('TaskNinjaApp', [
+  .module('Solvr', [
     'ngAnimate',
     'ngResource',
     'ngRoute',
-    'firebase'
+    'firebase',
+    "problemControllers"
   ])
-  .constant('FURL', 'https://your-firebase.firebaseio.com/')
+  // .constant('FURL', 'https://your-firebase.firebaseio.com/')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html'
       })
       .when('/problems', {
-        templateUrl: 'views/problems/index.html'
+        templateUrl: 'views/problems/index.html',
+        controller: 'problemsController',
+        controllerAs: "problemsCtrl"
       })
       .when('/problems/new', {
         templateUrl: 'views/problems/new.html',
-        controller: "ProblemsController"
+        controller: "newProblemController",
+        controllerAs: "newProblemCtrl"
       })
       .when('/problems/:id', {
         templateUrl: 'views/problems/show.html',
-        controller: "ProblemsController"
+        controller: "problemController",
+        controllerAs: "problemCtrl"
       })
       .when('/problems/:id/edit', {
         templateUrl: 'views/problems/edit.html'

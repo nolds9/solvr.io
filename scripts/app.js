@@ -6,31 +6,31 @@ var app = angular
     'ngResource',
     'ngRoute',
     'firebase',
-    "problemControllers"
+    "contractControllers"
   ])
-  // .constant('FURL', 'https://your-firebase.firebaseio.com/')
+  .constant('FURL', 'https://solvr.firebaseio.com/')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html'
       })
-      .when('/problems', {
-        templateUrl: 'views/problems/index.html',
-        controller: 'problemsController',
-        controllerAs: "problemsCtrl"
+      .when('/contracts', {
+        templateUrl: 'views/contracts/index.html',
+        controller: 'contractsController',
+        controllerAs: "contractsCtrl"
       })
-      .when('/problems/new', {
-        templateUrl: 'views/problems/new.html',
-        controller: "newProblemController",
-        controllerAs: "newProblemCtrl"
+      .when('/contracts/new', {
+        templateUrl: 'views/contracts/new.html',
+        controller: "newContractController",
+        controllerAs: "newContractCtrl"
       })
-      .when('/problems/:id', {
-        templateUrl: 'views/problems/show.html',
-        controller: "problemController",
-        controllerAs: "problemCtrl"
+      .when('/contracts/:id', {
+        templateUrl: 'views/contracts/show.html',
+        controller: "contractController",
+        controllerAs: "contractCtrl"
       })
-      .when('/problems/:id/edit', {
-        templateUrl: 'views/problems/edit.html'
+      .when('/contracts/:id/edit', {
+        templateUrl: 'views/contracts/edit.html'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row title">
+    <div class="col-md-6 col-md-offset-3">
+      <form ng-submit="editContractCtrl.updateContract(editContractCtrl.selectedContract)">
+        <input type="text" ng-model="editContractCtrl.contract.title" class="form-control" placeholder="{{ 2 + 2}}" required><br>
+	      <textarea ng-model="editContractCtrl.contract.description" class="form-control" placeholder="Describe your issue" required></textarea><br>
+	      <input type="number" ng-model="editContractCtrl.contract.total" class="form-control" placeholder="How much will you pay?" required><br>
+	      <input type="submit" value="Update" class="btn btn-warning">
+      </form>
+    </div>
+  </div>
+</div>

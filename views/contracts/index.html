@@ -1,0 +1,39 @@
+<!-- <h2>All contracts</h2> -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-offset-2 col-md-8">
+      <div class="list-group">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+            <input type="text" ng-model="contractsCtrl.searchContract" class="form-control" placeholder="Search">
+          </div>
+        </div>
+        <div class="title">
+          <a href="#/contracts/new" class="btn btn-warning">Post new Contract</a>
+        </div>
+        <br>
+
+        <!-- Contract LIST -->
+        <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'title'" ng-href="#/contracts/{{contract.$id}}/edit">
+          <div class="list-group-item">
+              <div class="row-content">
+                <h4 class="list-group-item-heading">{{contract.title}}</h4>
+                <span class="list-group-item-text">
+                  <!-- Filter to 25 chars -->
+                  {{contract.description | limitTo:25 }}{{ contract.description.length > 25? "..." : ""}}
+                </span>
+              </div>
+              <div class="payment">
+                <div>${{contract.total}}</div>
+              </div>
+          </div>
+          <div class="list-group-seperator"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

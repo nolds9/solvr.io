@@ -34,6 +34,12 @@ var app = angular
         controller: "editContractController",
         controllerAs: "editContractCtrl"
       })
+      .when("/login", {
+        templateUrl: "views/login.html"
+      })
+      .when("/register", {
+        templateUrl: "views/register.html"
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -16,7 +16,7 @@
     				</div>
 
     				<!-- CONTRACT LIST -->
-            <a ng-repeat="contract in contracts | filter: searchContract | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
+            <a ng-repeat="contract in contracts | filter: {title: searchContract, status: '!closed'} | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
     					<div class="list-group-item">
     				        <div class="row-picture">
     				            <img class="circle" ng-src="{{contract.gravatar}}">

@@ -11,7 +11,7 @@ app.controller('ContractController', function($scope, $location, toaster, Contra
 		Contract.createContract($scope.contract).then(function(ref) {
 			toaster.pop('success', 'Contract created successfully.');
 			$scope.contract = {title: '', description: '', total: '', status: 'open', gravatar: '', name: '', poster: ''};
-			$location.path('/browse/' + ref.key());
+			$location.path('/contracts/' + ref.key());
 		});
 	};
 

@@ -32,8 +32,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 	// --------------- CONTRACT ---------------
 
 	$scope.cancelContract = function(id) {
-		Contract.cancelContract(id).then(function() {
-			toaster.pop('success', "This contract is cancelled successfully.");
+		Contract.closeContract(id).then(function() {
+			toaster.pop('success', "This contract was cancelled successfully.");
 		});
 	};
 });

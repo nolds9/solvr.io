@@ -1,4 +1,4 @@
-<div class="modal fade" id="posModal">
+<div class="modal fade" id="posModal" ng-controller="newContractContoller">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -10,7 +10,7 @@
         </div>
 
         <div class="panel-body">
-          <form ng-submit="createcontract()">
+          <form ng-submit="createContract()">
             <input type="text" ng-model="contract.title" class="form-control" placeholder="What's your contract?" required><br>
             <textarea ng-model="contract.description" class="form-control" placeholder="Describe your issue" required></textarea><br>
             <input type="number" ng-model="contract.total" class="form-control" placeholder="How much will you pay?" required><br>

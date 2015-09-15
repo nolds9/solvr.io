@@ -16,7 +16,7 @@
     				</div>
 
     				<!-- CONTRACT LIST -->
-            <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'title'" ng-href="#/contracts/{{contract.$id}}">
+            <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
     					<div class="list-group-item">
     				        <div class="row-picture">
     				            <img class="circle" ng-src="{{contract.gravatar}}">
@@ -40,11 +40,11 @@
 
       <!-- RIGHT PANEL -->
   <div class="col-md-6">
-    <div ng-show="listMode">
+    <div ng-show="contractsCtrl.listMode">
       <img src="images/browse.jpg" class="img-responsive img-browse">
     </div>
 
-    <div ng-show="!listMode">
+    <div ng-show="!contractsCtrl.listMode">
 
       <!-- HEADER -->
       <div class="row">
@@ -62,7 +62,7 @@
           <div class="price-tag">
             ${{ selectedContract.total }}
             <div ng-show="true"></div>
-            <!-- <div ng-show="isContractCreator(selectedContract) && isOpen(selectedContract)"> -->
+            <div ng-show="isContractCreator(selectedContract) && isOpen(selectedContract)">
               <div class="btn-group">
                   <a href="" class="btn btn-warning">Admin</a>
                   <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>

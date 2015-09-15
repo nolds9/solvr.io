@@ -7,7 +7,8 @@ var app = angular
     'ngRoute',
     'firebase',
     'toaster',
-    "contractControllers"
+    "contractControllers",
+    'angularMoment'
   ])
   .constant('FURL', 'https://solvr.firebaseio.com/')
   .config(function ($routeProvider) {

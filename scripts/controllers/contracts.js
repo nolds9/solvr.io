@@ -4,79 +4,46 @@
   var contractControllers = angular.module('contractControllers', ['ngRoute'] );
 
   //index controller
-  contractControllers.controller('contractsController', ['FURL', '$firebase', function(  Furl, $firebase ){
-    // this.contracts = contract.query();
-    var url = 'https://solvr.firebaseio.com/';
-    var ref = new Firebase(url);
-    var fbContracts = $firebase(ref.child('contracts')).$asArray();
-
-
-    fbContracts.$loaded().then(function(data){
-      console.log('Step 0: ' + data.length);
-    });
-
-    console.log("step 1 = " + fbContracts.length);
-
-
-
-    this.contracts = fbContracts;
+  contractControllers.controller('contractsController', ['$routeParams','toaster', 'Contract', 'Auth', function($routeParams, toaster, Contract, Auth){
+    this.searchContract = '';
+    this.contracts = Contract.all;
+    this.signedIn = Auth.signedIn;
+    this.listMode = true;
   }]);
 
   // show controller
-  contractControllers.controller('contractController', [ '$routeParams', function($routeParams){
-      this.contract = {
-        id: $routeParams.id,
-        title: "clean my house"
-      };
+  contractControllers.controller('contractController', [ '$routeParams', 'Auth', 'Contract', function($routeParams, Auth, Contract){
+    if($routeParams.id){
+      var contract = Contract.getContract($routeParams.id).$asObject();
+      $scope.listMode = false
+    }
   }]);
 
   // new controller
-  contractControllers.controller('newContractController', ['$location', 'FURL', "$firebase", function( $location, FURL, $firebase ){
-      this.createcontract = function(contract, FURL){
-        // console.log(contract)
-        var url = 'https://solvr.firebaseio.com/';
+  contractControllers.controller('newContractController', ['$scope', '$location', 'toaster','Contract', 'Auth', function( $scope, $location, toaster, Contract, Auth ){
+      $scope.createContract = function(){
+        $scope.contract = {
+          status: "open",
+          gravatar: Auth.user.profile.gravatar,
+          name: Auth.user.profile.name,
+          poster: Auth.user.uid
+        };
 
-        var ref = new Firebase(url);
-
-        // var ref = new Firebase( FURL ).child("contracts");
-
-        var fbContracts = $firebase(ref.child('/contracts')).$asArray();
-
-        fbContracts.$add(contract);
-
-        // pass in location TODO
-        $location.path("/contracts");
+        Contract.createContract($scope.contract).then(function(ref){
+          toaster.pop('success', 'Contract created successfully');
+          $scope.contract = {title: '', description: '', total: '', status: 'open', gravatar: '', name: '', poster: ''};
+          $location.path("/contracts/" + ref.key());
+        });
       };
   }]);
 
   // edit controller
-  contractControllers.controller('editContractController', ['$location', '$routeParams', '$firebase', 'toaster', function($location, $routeParams, $firebase, toastr){
-      // Connect to Firebase
-      var url = 'https://solvr.firebaseio.com/';
-      var ref = new Firebase(url)
-      // store database recores in local variable as an array
-      var fbContracts = $firebase(ref.child('/contracts')).$asArray();
-      // grab contract's id from route params
-      var contractId = $routeParams.id;
-
-      // Query DB for specified contract
-      this.getContract = function(contractId){
-        return $firebase(ref.child('contracts').child(contractId)).$asObject();
-      };
-
-      // If record with an Id == routeParams.id
-     if(contractId){
-       // attach selectedContract to controller
-       this.selectedContract = this.getContract(contractId);
-     }
-
-     // Take user input and update selectedContract
+  contractControllers.controller('editContractController', ['$location', 'Contract', 'Auth', 'toaster', function($location, Contract, Auth, toaster){
      this.updateContract = function(contract){
-       this.selectedContract.$save(contract);
-       toaster.pop('success', 'Contract Updated');
-       $location.path('/contracts');
+       Contract.editContract(contract).then(function(){
+         toaster.pop('success', 'Contract is updated');
+       });
      };
-
   }]);
 
 })();

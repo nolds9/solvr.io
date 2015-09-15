@@ -1,4 +1,4 @@
-<nav class="navbar navbar-info">
+<nav class="navbar navbar-info" ng-controller="NavController">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -15,18 +15,18 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="#/contracts/new">Post a Contract</a></li>
+        <li ng-show="signedIn()"><a href="#/contracts/new">Post a Contract</a></li>
         <li><a href="#/contracts">Browse Contracts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/login">Login</a></li>
-        <li><a href="#/register">Register</a></li>
+        <li ng-hide="signedIn()"><a href="#/login">Login</a></li>
+        <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
 
-        <li class="dropdown">
+        <li ng-show="signedIn()" class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">
-            <!-- <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
+            <img ng-src="{{currentUser.profile.gravatar}}" class="img-circle gravatar">
             &nbsp;
-            {{currentUser.profile.name}} -->
+            {{currentUser.profile.name}}
             <span class="mdi-navigation-expand-more"></span>
           </a>
           <ul class="dropdown-menu">
@@ -41,6 +41,6 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 
-  <div ng-include="'views/partials/changePassword.html'"></div>
+  <div ng-show="signedIn()" ng-include="'views/partials/changePassword.html'"></div>
 
 </nav>

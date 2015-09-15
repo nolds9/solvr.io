@@ -10,6 +10,15 @@
     var ref = new Firebase(url);
     var fbContracts = $firebase(ref.child('contracts')).$asArray();
 
+
+    fbContracts.$loaded().then(function(data){
+      console.log('Step 0: ' + data.length);
+    });
+
+    console.log("step 1 = " + fbContracts.length);
+
+
+
     this.contracts = fbContracts;
   }]);
 

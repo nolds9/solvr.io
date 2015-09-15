@@ -1,35 +1,101 @@
 <!-- <h2>All contracts</h2> -->
 <div class="container">
   <div class="row">
+    <!-- LEFT PANEL -->
+    	<div class="col-md-offset-1 col-md-4">
 
-    <div class="col-md-offset-2 col-md-8">
-      <div class="list-group">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-addon">
-              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
-            <input type="text" ng-model="contractsCtrl.searchContract" class="form-control" placeholder="Search">
-          </div>
+    		<div class="list-group">
+    				<!-- SEARCH TOOL -->
+    				<div class="form-group">
+    					<div class="input-group">
+    						<div class="input-group-addon">
+    							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    						</div>
+    			      <input type="text" ng-model="contractsCtrl.searchContract" class="form-control" placeholder="Search">
+    			    </div>
+    				</div>
+
+    				<!-- CONTRACT LIST -->
+            <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'title'" ng-href="#/contracts/{{contract.$id}}">
+    					<div class="list-group-item">
+    				        <div class="row-picture">
+    				            <img class="circle" ng-src="{{contract.gravatar}}">
+    				        </div>
+    				        <div class="row-content">
+    				            <h4 class="list-group-item-heading">{{contract.title | limitTo:25}}{{ contract.title.length > 25? "..." : ""}}</h4>
+    				            <span class="list-group-item-text">
+    				            	<span am-time-ago="contract.datetime"></span>
+    				            </span>
+    				        </div>
+    				        <div class="payment">
+    				        	<div>${{contract.total}}</div>
+    				        	<span class="label status {{contract.status}}">{{contract.status}}</span>
+    				        </div>
+    				    </div>
+    			    	<div class="list-group-separator"></div>
+    		    	</a>
+    		</div>
+
+    	</div>
+
+      <!-- RIGHT PANEL -->
+  <div class="col-md-6">
+    <div ng-show="listMode">
+      <img src="images/browse.jpg" class="img-responsive img-browse">
+    </div>
+
+    <div ng-show="!listMode">
+
+      <!-- HEADER -->
+      <div class="row">
+        <div class="col-md-8">
+          <h3>{{ selectedContract.title }}</h3>
+          <span>
+            <img ng-src="{{ selectedContract.gravatar }}" class="img-circle gravatar">
+            Posted by {{selectedContract.name}} -
+            <span am-time-ago="selectedContract.datetime"></span>&nbsp;
+            <span class="label status {{selectedContract.status}}">{{ selectedContract.status }}</span>
+          </span>
         </div>
 
-        <!-- Contract LIST -->
-        <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'title'" ng-href="#/contracts/{{contract.$id}}/edit">
-          <div class="list-group-item">
-              <div class="row-content">
-                <h4 class="list-group-item-heading">{{contract.title}}</h4>
-                <span class="list-group-item-text">
-                  <!-- Filter to 25 chars -->
-                  {{contract.description | limitTo:25 }}{{ contract.description.length > 25? "..." : ""}}
-                </span>
+        <div class="col-md-4 title">
+          <div class="price-tag">
+            ${{ selectedContract.total }}
+            <div ng-show="true"></div>
+            <!-- <div ng-show="isContractCreator(selectedContract) && isOpen(selectedContract)"> -->
+              <div class="btn-group">
+                  <a href="" class="btn btn-warning">Admin</a>
+                  <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT CONTRACT</a></li>
+                      <li class="divider"></li>
+                      <li><a href="" ng-click="">CANCEL CONTRACT</a></li>
+                  </ul>
               </div>
-              <div class="payment">
-                <div>${{contract.total}}</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <!-- DESCRIPTION -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Description</h3>
+              </div>
+              <div class="panel-body">
+                  {{ selectedTask.description }}
               </div>
           </div>
-          <div class="list-group-seperator"></div>
-        </a>
+        </div>
       </div>
-    </div>
+
   </div>
-</div>
+
+  </div>
+
+<div ng-include="'views/partials/_edit.html'"></div>

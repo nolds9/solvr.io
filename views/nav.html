@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-left">
-        <li ng-show="signedIn()"><a href="#/contracts/new">Post a Contract</a></li>
+        <li ng-show="signedIn()"><a href="" data-toggle="modal" data-target="#posModal">Post a Contract</a></li>
         <li><a href="#/contracts">Browse Contracts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -32,7 +32,7 @@
           <ul class="dropdown-menu">
             <li><a href="" data-toggle="modal" data-target="#pasModal">
               <i class="mdi-action-lock"></i> Change Password</a></li>
-            <li><a href="#" ng-click="logout()">
+            <li><a href="" ng-click="logout()">
               <i class="mdi-action-exit-to-app"></i> Logout</a></li>
           </ul>
         </li>
@@ -41,6 +41,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 
-  <div ng-show="signedIn()" ng-include="'views/partials/changePassword.html'"></div>
+  <div ng-show="signedIn()" ng-include="'views/partials/_changePassword.html'"></div>
+  <div ng-show="signedIn()" ng-include="'views/partials/_new.html'"></div>
 
 </nav>

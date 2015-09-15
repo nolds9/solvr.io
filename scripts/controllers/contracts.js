@@ -4,7 +4,7 @@
   var contractControllers = angular.module('contractControllers', ['ngRoute'] );
 
   //index controller
-  contractControllers.controller('contractsController', ['FURL', "$firebase", function(  Furl, $firebase ){
+  contractControllers.controller('contractsController', ['FURL', '$firebase', function(  Furl, $firebase ){
     // this.contracts = contract.query();
     var url = 'https://solvr.firebaseio.com/';
     var ref = new Firebase(url);
@@ -50,7 +50,7 @@
   }]);
 
   // edit controller
-  contractControllers.controller('editContractController', ['$location', '$routeParams', '$firebase', function($location, $routeParams, $firebase){
+  contractControllers.controller('editContractController', ['$location', '$routeParams', '$firebase', 'toaster', function($location, $routeParams, $firebase, toastr){
       // Connect to Firebase
       var url = 'https://solvr.firebaseio.com/';
       var ref = new Firebase(url)
@@ -73,6 +73,7 @@
      // Take user input and update selectedContract
      this.updateContract = function(contract){
        this.selectedContract.$save(contract);
+       toaster.pop('success', 'Contract Updated');
        $location.path('/contracts');
      };
 

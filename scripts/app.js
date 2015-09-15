@@ -7,7 +7,6 @@ var app = angular
     'ngRoute',
     'firebase',
     'toaster',
-    "contractControllers",
     'angularMoment'
   ])
   .constant('FURL', 'https://solvr.firebaseio.com/')
@@ -18,13 +17,11 @@ var app = angular
       })
       .when('/contracts', {
         templateUrl: 'views/contracts/index.html',
-        controller: 'contractsController',
-        controllerAs: "contractsCtrl"
+        controller: 'BrowseController'
       })
       .when('/contracts/:id', {
-        templateUrl: 'views/contracts/show.html',
-        controller: "contractController",
-        controllerAs: "contractCtrl"
+        templateUrl: 'views/contracts/index.html',
+        controller: "BrowseController"
       })
       .when("/login", {
         templateUrl: "views/login.html",

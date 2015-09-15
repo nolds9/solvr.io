@@ -11,12 +11,12 @@
     						<div class="input-group-addon">
     							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
     						</div>
-    			      <input type="text" ng-model="contractsCtrl.searchContract" class="form-control" placeholder="Search">
+    			      <input type="text" ng-model="searchContract" class="form-control" placeholder="Search">
     			    </div>
     				</div>
 
     				<!-- CONTRACT LIST -->
-            <a ng-repeat="contract in contractsCtrl.contracts | filter: contractsCtrl.searchContract | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
+            <a ng-repeat="contract in contracts | filter: searchContract | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
     					<div class="list-group-item">
     				        <div class="row-picture">
     				            <img class="circle" ng-src="{{contract.gravatar}}">
@@ -39,63 +39,62 @@
     	</div>
 
       <!-- RIGHT PANEL -->
-  <div class="col-md-6">
-    <div ng-show="contractsCtrl.listMode">
-      <img src="images/browse.jpg" class="img-responsive img-browse">
-    </div>
+	<div class="col-md-6">
+		<div ng-show="listMode">
+			<img src="images/browse.jpg" class="img-responsive img-browse">
+		</div>
 
-    <div ng-show="!contractsCtrl.listMode">
+		<div ng-show="!listMode">
 
-      <!-- HEADER -->
-      <div class="row">
-        <div class="col-md-8">
-          <h3>{{ selectedContract.title }}</h3>
-          <span>
-            <img ng-src="{{ selectedContract.gravatar }}" class="img-circle gravatar">
-            Posted by {{selectedContract.name}} -
-            <span am-time-ago="selectedContract.datetime"></span>&nbsp;
-            <span class="label status {{selectedContract.status}}">{{ selectedContract.status }}</span>
-          </span>
-        </div>
+			<!-- HEADER -->
+			<div class="row">
+				<div class="col-md-8">
+					<h3>{{ selectedContract.title }}</h3>
+					<span>
+						<img ng-src="{{ selectedContract.gravatar }}" class="img-circle gravatar">
+						Posted by {{selectedContract.name}} -
+						<span am-time-ago="selectedContract.datetime"></span>&nbsp;
+						<span class="label status {{selectedContract.status}}">{{ selectedContract.status }}</span>
+					</span>
+				</div>
 
-        <div class="col-md-4 title">
-          <div class="price-tag">
-            ${{ selectedContract.total }}
-            <div ng-show="true"></div>
-            <div ng-show="isContractCreator(selectedContract) && isOpen(selectedContract)">
-              <div class="btn-group">
-                  <a href="" class="btn btn-warning">Admin</a>
-                  <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT CONTRACT</a></li>
-                      <li class="divider"></li>
-                      <li><a href="" ng-click="">CANCEL CONTRACT</a></li>
-                  </ul>
-              </div>
-            </div>
+				<div class="col-md-4 title">
+					<div class="price-tag">
+						${{ selectedContract.total }}
 
-          </div>
-        </div>
-      </div>
+						<div ng-show="isContractCreator(selectedContract) && isOpen(selectedContract)">
+							<div class="btn-group">
+							    <a href="" class="btn btn-warning">Admin</a>
+							    <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+							    <ul class="dropdown-menu">
+							        <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT CONTRACT</a></li>
+							        <li class="divider"></li>
+							        <li><a href="" ng-click="cancelContract(selectedContract.$id)">CANCEL CONTRACT</a></li>
+							    </ul>
+							</div>
+						</div>
 
-      <br>
+					</div>
+				</div>
+			</div>
 
-      <!-- DESCRIPTION -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title">Description</h3>
-              </div>
-              <div class="panel-body">
-                  {{ selectedTask.description }}
-              </div>
-          </div>
-        </div>
-      </div>
+			<br>
 
-  </div>
+			<!-- DESCRIPTION -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+					    <div class="panel-heading">
+					        <h3 class="panel-title">Description</h3>
+					    </div>
+					    <div class="panel-body">
+					        {{ selectedContract.description }}
+					    </div>
+					</div>
+				</div>
+			</div>
 
-  </div>
+	</div>
 
+</div>
 <div ng-include="'views/partials/_edit.html'"></div>

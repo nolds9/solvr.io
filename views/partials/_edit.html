@@ -1,4 +1,4 @@
-<div class="modal fade" id="ediModal" ng-controller="editContractContoller as editContractCtrl">
+<div class="modal fade" id="ediModal" ng-controller="ContractController">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -10,10 +10,10 @@
         </div>
 
         <div class="panel-body">
-          <form ng-submit="editContractCtrl.updateContract(editContractCtrl.selectedContract)">
-            <input type="text" ng-model="editContractCtrl.selectedContract.title" class="form-control" placeholder="What's the problem?" required><br>
-            <textarea ng-model="editContractCtrl.selectedContract.description" class="form-control" placeholder="Describe your issue" required></textarea><br>
-            <input type="number" ng-model="editContractCtrl.selectedContract.total" class="form-control" placeholder="How much will you pay?" required><br>
+          <form ng-submit="editContract(selectedContract)">
+            <input type="text" ng-model="selectedContract.title" class="form-control" placeholder="What's the problem?" required><br>
+            <textarea ng-model="selectedContract.description" class="form-control" placeholder="Describe your issue" required></textarea><br>
+            <input type="number" ng-model="selectedContract.total" class="form-control" placeholder="How much will you pay?" required><br>
             <input type="submit" value="Post" class="btn btn-warning">
           </form>
         </div>

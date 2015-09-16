@@ -73,8 +73,9 @@
 							    </ul>
 							</div>
 						</div>
+
             <!-- Offer Button -->
-            <div ng-show="isOpen(selectedContract) && !isContractCreator(selectedContract)">
+            <div ng-show="isOpen(selectedContract) && !isContractCreator(selectedContract) && !alreadyOffered">
               <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Solve Now</button>
             </div>
 
@@ -114,7 +115,7 @@
 
                 <div class="row" ng-repeat="offer in offers">
                   <div class="col-md-10">
-                    <img ng-src="offer.gravatar" class="img-circle offer gravatar">
+                    <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar">
                     <span>{{offer.name}}</span>
                   </div>
                 </div><br>

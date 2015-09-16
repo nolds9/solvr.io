@@ -73,6 +73,11 @@
 							    </ul>
 							</div>
 						</div>
+            <!-- Offer Button -->
+            <div ng-show="isOpen(selectedContract) && !isContractCreator(selectedContract)">
+              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Solve Now</button>
+            </div>
+
 
 					</div>
 				</div>
@@ -93,6 +98,31 @@
 					</div>
 				</div>
 			</div>
+
+      <!-- OFFERS  -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+
+              <div class="panel-heading">
+                  <h3 class="panel-title">Offers</h3>
+              </div>
+              <div class="panel-body">
+                <div class="title" ng-hide="offers && offers.length > 0">
+                  <span>NO OFFERS YET FOR THIS CONTRACT</span>
+                </div>
+
+                <div class="row" ng-repeat="offer in offers">
+                  <div class="col-md-10">
+                    <img ng-src="offer.gravatar" class="img-circle offer gravatar">
+                    <span>{{offer.name}}</span>
+                  </div>
+                </div><br>
+
+              </div>
+          </div>
+        </div>
+      </div>
 
       <!-- COMMENTS -->
       <div class="row">
@@ -148,3 +178,4 @@
 
 </div>
 <div ng-include="'views/partials/_edit.html'"></div>
+<div ng-include="'views/partials/_offer.html'"></div>

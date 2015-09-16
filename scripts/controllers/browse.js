@@ -26,7 +26,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 		if($scope.signedIn()) {
 
 			// Check if the current logged in user has already made an offer for selected contract
-			// Check if the current login user has already made an offer for selected contract
 				Offer.isOffered(contract.$id).then(function(data) {
 					console.log(data);
 					$scope.alreadyOffered = data;
@@ -67,11 +66,11 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			toaster.pop('success', "Your offer has been placed.");
 
 			// Mark that the current user has offerred for this contract.
-			console.log($scope.alreadyOffered);
+			// console.log($scope.alreadyOffered);
 
 			$scope.alreadyOffered = true;
 
-			console.log($scope.alreadyOffered);
+			// console.log($scope.alreadyOffered);
 
 
 			// Reset offer form
@@ -79,20 +78,24 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 
 			// Disable the "Offer Now" button on the modal
 			$scope.block = true;
+
+			$scope.isOfferMaker = Offer.isMaker;
+
+
 		});
 	};
 
-	// $scope.cancelOffer = function(offerId) {
-	// 	Offer.cancelOffer($scope.selectedContract.$id, offerId).then(function() {
-	// 		toaster.pop('success', "Your offer has been cancelled.");
-	//
-	// 		// Mark that the current user has cancelled offer for this contract.
-	// 		$scope.alreadyOffered = false;
-	//
-	// 		// Unblock the Offer button on Offer modal
-	// 		$scope.block = false;
-	// 	});
-	// };
+	$scope.cancelOffer = function(offerId) {
+		Offer.cancelOffer($scope.selectedContract.$id, offerId).then(function() {
+			toaster.pop('success', "Your offer has been cancelled.");
+
+			// Mark that the current user has cancelled offer for this contract.
+			$scope.alreadyOffered = false;
+
+			// Unblock the Offer button on Offer modal
+			$scope.block = false;
+		});
+	};
 
 
 	// --------------- COMMENT ---------------

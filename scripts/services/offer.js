@@ -19,8 +19,8 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth) {
 
 		//-----------------------------------------------//
 
-		// This function is to check if the login user already made offer for this contract.
-		// This to prevent a user from offering more than 1.
+		// Check if the login user already made offer for this contract.
+		// Prevent a user from offering more than 1.
 		isOffered: function(contractId) {
 
 			if(user && user.provider) {

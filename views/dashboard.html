@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+    <h2 class="title">Dashboard</h2><br>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Contract Poster <span class="badge">{{numPoster}}</span>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div ng-if="numPoster === 0">You haven't posted any contracts yet.</div>
+            <div ng-repeat="contract in contractPoster">
+              <a ng-href="#/contracts/{{contract.contractId}}"> {{contract.title}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Contract Solvr <span class="badge">{{numSolvr}}</span>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div ng-if="numSolvr === 0">You haven't solved any contracts yet.</div>
+            <div ng-repeat="contract in contractSolvr">
+              <a ng-href="#/contracts/{{contract.contractId}}"> {{contract.title}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -47,6 +47,10 @@ app.factory("Auth", function(FURL, $firebaseAuth, $firebase){
 
     signedIn: function(){
       return !!Auth.user.provider;
+    },
+
+    requireAuth: function(){
+      return auth.$requireAuth();
     }
   };
 
@@ -59,7 +63,7 @@ app.factory("Auth", function(FURL, $firebaseAuth, $firebase){
       if(Auth.user && Auth.user.profile){
         Auth.user.profile.$destroy();
       }
-      
+
       angular.copy({}, Auth.user);
     }
   });

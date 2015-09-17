@@ -10,6 +10,15 @@ var app = angular
     'angularMoment'
   ])
   .constant('FURL', 'https://solvr.firebaseio.com/')
+  .run(function($rootScope, $location){
+    $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+      // Catch error thrown when the $requireAuth promise is rejected
+      // and then redirect the user back to the login page
+      if(error === 'AUTH_REQUIRED'){
+        $location.path('/login');
+      }
+    });
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -30,6 +39,15 @@ var app = angular
       .when("/register", {
         templateUrl: "views/register.html",
         controller: "AuthController"
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardController',
+        resolve: {
+          currentAuth: function(Auth){
+            return Auth.requireAuth();
+          }
+        }
       })
       .otherwise({
         redirectTo: '/'

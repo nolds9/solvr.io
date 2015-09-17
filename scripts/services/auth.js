@@ -68,13 +68,19 @@ app.factory("Auth", function(FURL, $firebaseAuth, $firebase){
     }
   });
 
+
+// =============== GRAVATAR ==================
+
+
   function get_gravatar(email, size) {
 
         email = email.toLowerCase();
 
+// =============== Import MD5 hash ======================
+
         var MD5 = function(s) {
           function L(k, d) {
-            return (k << d) | (k >>> (32 - d))
+            return (k << d) | (k >>> (32 - d));
           }
 
           function K(G, k) {
@@ -85,33 +91,33 @@ app.factory("Auth", function(FURL, $firebaseAuth, $firebase){
             d = (k & 1073741824);
             x = (G & 1073741823) + (k & 1073741823);
             if (I & d) {
-              return (x ^ 2147483648 ^ F ^ H)
+              return (x ^ 2147483648 ^ F ^ H);
             }
             if (I | d) {
               if (x & 1073741824) {
-                return (x ^ 3221225472 ^ F ^ H)
+                return (x ^ 3221225472 ^ F ^ H);
               } else {
-                return (x ^ 1073741824 ^ F ^ H)
+                return (x ^ 1073741824 ^ F ^ H);
               }
             } else {
-              return (x ^ F ^ H)
+              return (x ^ F ^ H);
             }
           }
 
           function r(d, F, k) {
-            return (d & F) | ((~d) & k)
+            return (d & F) | ((~d) & k);
           }
 
           function q(d, F, k) {
-            return (d & k) | (F & (~k))
+            return (d & k) | (F & (~k));
           }
 
           function p(d, F, k) {
-            return (d ^ F ^ k)
+            return (d ^ F ^ k);
           }
 
           function n(d, F, k) {
-            return (F ^ (d | (~k)))
+            return (F ^ (d | (~k)));
           }
 
           function u(G, F, aa, Z, k, H, I) {

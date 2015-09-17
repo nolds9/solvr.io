@@ -72,12 +72,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			toaster.pop('success', "Your offer has been placed.");
 
 			// Mark that the current user has offerred for this contract.
-			// console.log($scope.alreadyOffered);
-
 			$scope.alreadyOffered = true;
-
-			// console.log($scope.alreadyOffered);
-
 
 			// Reset offer form
 			$scope.total = '';
@@ -86,9 +81,6 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			$scope.block = true;
 
 			$scope.isOfferMaker = Offer.isMaker;
-
-
-
 
 		});
 	};
@@ -107,9 +99,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 
 
 	$scope.acceptOffer = function(offerId, solvrId){
-			Offer.acceptOffer($scope.selectedContract.$id, offerId, solvrId).then(function(){
-				toaster.pop('success', 'Offer is accepted');
-			});
+		Offer.acceptOffer($scope.selectedContract.$id, offerId, solvrId).then(function(){
+			toaster.pop('success', 'Offer is accepted');
+		});
 	};
 
 	$scope.completeContract = function(contractId){

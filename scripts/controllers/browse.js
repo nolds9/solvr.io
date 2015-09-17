@@ -27,9 +27,9 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 
 			// Check if the current logged in user has already made an offer for selected contract
 				Offer.isOffered(contract.$id).then(function(data) {
-					console.log(data);
+					// console.log(data);
 					$scope.alreadyOffered = data;
-					console.log($scope.alreadyOffered);
+					// console.log($scope.alreadyOffered);
 				});
 
 			// Check if the current login user is the creator of selected contract
@@ -95,6 +95,13 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			// Unblock the Offer button on Offer modal
 			$scope.block = false;
 		});
+	};
+
+
+	$scope.acceptOffer = function(offerId, solvrId){
+			Offer.acceptOffer($scope.selectedContract.$id, offerId, solvrId).then(function(){
+				toaster.pop('success', 'Offer is accepted');
+			});
 	};
 
 

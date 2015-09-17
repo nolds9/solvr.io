@@ -55,12 +55,18 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth, Contract) {
 		},
 
 		acceptOffer: function(contractId, offerId, solvrId){
+			// Step 1: Update Offer with accepted = true
 			var o = this.getOffer(contractId, offerId);
-			return o.$update({accepted: true}).then(function(){
-
+			return o.$update({accepted: true})
+				.then(function(){
+					// Step 2: Update Contract with status = "assigned" and solvrId
 					var c = Contract.getContract(contractId);
 					return c.$update({status:"assigned", solvr: solvrId});
-			});
+				})
+				.then(function(){
+					// Step 3: Create User-Contracts lookup record for use in Dashboard
+					return Contract.createUserContracts(contractId);
+				});
 		}
 
 	};

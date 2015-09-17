@@ -13,10 +13,37 @@ app.factory('Contract', function( $firebase, Auth){
       return $firebase(ref.child('contracts').child(id));
     },
 
-    createContract: function(contract){
+    createContract: function(contract) {
       contract.datetime = Firebase.ServerValue.TIMESTAMP;
-      return contracts.$add(contract);
+      return contracts.$add(contract).then(function(newContract) {
+
+        // Create User-Contracts lookup record for POSTER
+        var obj = {
+          contractId: newContract.key(),
+          type: true,
+          title: contract.title
+        };
+
+        return $firebase(ref.child('user_contracts').child(contract.poster)).$push(obj);
+      });
     },
+
+    createUserContracts: function(contractId) {
+    			Contract.getContract(contractId)
+    				.$asObject()
+    				.$loaded()
+    				.then(function(contract) {
+
+    					// Create User-Contracts lookup record for RUNNER
+    					var obj = {
+    						contractId: contractId,
+    						type: false,
+    						title: contract.title
+    					};
+
+    					return $firebase(ref.child('user_contracts').child(contract.solvr)).$push(obj);
+    				});
+    		},
 
     editContract: function(contract){
       var c = this.getContract(contract.$id);

@@ -79,6 +79,9 @@
               <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Solve Now</button>
             </div>
 
+            <div ng-show="isSolvr(selectedContract) && !isCompleted(selectedContract)">
+              <button ng-click="completeContract(selectedContract.$id)" class="btn btn-danger btn-sm">Complete</button>
+            </div>
 
 					</div>
 				</div>

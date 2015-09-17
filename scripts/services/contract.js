@@ -34,6 +34,19 @@ app.factory('Contract', function( $firebase, Auth){
 
     isOpen: function(contract){
         return contract.status === "open";
+    },
+
+    completeContract: function(contractId){
+        var c = this.getContract(contractId);
+        return c.$update({status: "completed"});
+    },
+
+    isSolvr: function(contract){
+      return (user && user.provider && user.uid === contract.solvr );
+    },
+
+    isCompleted: function(contract){
+      return contract.status === "completed";
     }
   };
 

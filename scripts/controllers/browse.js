@@ -25,18 +25,24 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 		// so we don't have to check every time normal guests open the contract
 		if($scope.signedIn()) {
 
-			// Check if the current logged in user has already made an offer for selected contract
-				Offer.isOffered(contract.$id).then(function(data) {
-					// console.log(data);
-					$scope.alreadyOffered = data;
-					// console.log($scope.alreadyOffered);
-				});
+		// Check if the current logged in user has already made an offer for selected contract
+			Offer.isOffered(contract.$id).then(function(data) {
+				// console.log(data);
+				$scope.alreadyOffered = data;
+				// console.log($scope.alreadyOffered);
+			});
 
 			// Check if the current login user is the creator of selected contract
 			$scope.isContractCreator = Contract.isCreator;
 
 			// Check if the selectedContract is open
 			$scope.isOpen = Contract.isOpen;
+
+			// Check if the current user is the contract winner
+			$scope.isSolvr = Contract.isSolvr;
+
+			// Check if the contract has been completed
+			$scope.isCompleted = Contract.isCompleted;
 
 			// Unblock the Offer Button
 			$scope.block = false;
@@ -82,6 +88,8 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			$scope.isOfferMaker = Offer.isMaker;
 
 
+
+
 		});
 	};
 
@@ -102,6 +110,12 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 			Offer.acceptOffer($scope.selectedContract.$id, offerId, solvrId).then(function(){
 				toaster.pop('success', 'Offer is accepted');
 			});
+	};
+
+	$scope.completeContract = function(contractId){
+		Contract.completeContract(contractId).then(function(){
+			toaster.pop('success', 'Contract Complete! Congrats');
+		});
 	};
 
 

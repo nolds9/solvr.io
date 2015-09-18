@@ -55,6 +55,13 @@ app.factory('Contract', function( $firebase, Auth){
       return c.$update({status: "closed"});
     },
 
+    completeContract: function(contractId){
+        var c = this.getContract(contractId);
+        return c.$update({status: "completed"});
+    },
+
+    // ========== BUSINESS RULES ===========================
+
     isCreator: function(contract){
       return ( user && user.provider && user.uid === contract.poster );
     },
@@ -63,10 +70,6 @@ app.factory('Contract', function( $firebase, Auth){
         return contract.status === "open";
     },
 
-    completeContract: function(contractId){
-        var c = this.getContract(contractId);
-        return c.$update({status: "completed"});
-    },
 
     isSolvr: function(contract){
       return (user && user.provider && user.uid === contract.solvr );

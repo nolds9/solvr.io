@@ -1,44 +1,7 @@
 <!-- <h2>All contracts</h2> -->
 <div class="container">
   <div class="row">
-    <!-- LEFT PANEL -->
-    	<div class="col-md-offset-1 col-md-4">
-
-    		<div class="list-group">
-    				<!-- SEARCH TOOL -->
-    				<div class="form-group">
-    					<div class="input-group">
-    						<div class="input-group-addon">
-    							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-    						</div>
-    			      <input type="text" ng-model="searchContract" class="form-control" placeholder="Search">
-    			    </div>
-    				</div>
-
-    				<!-- CONTRACT LIST -->
-            <a ng-repeat="contract in contracts | filter: {title: searchContract, status: '!closed'} | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
-    					<div class="list-group-item">
-    				        <div class="row-picture">
-    				            <img class="circle" ng-src="{{contract.gravatar}}">
-    				        </div>
-    				        <div class="row-content">
-    				            <h4 class="list-group-item-heading">{{contract.title | limitTo:25}}{{ contract.title.length > 25? "..." : ""}}</h4>
-    				            <span class="list-group-item-text">
-    				            	<span am-time-ago="contract.datetime"></span>
-    				            </span>
-    				        </div>
-    				        <div class="payment">
-    				        	<div>${{contract.total}}</div>
-    				        	<span class="label status {{contract.status}}">{{contract.status}}</span>
-    				        </div>
-    				    </div>
-    			    	<div class="list-group-separator"></div>
-    		    	</a>
-    		</div>
-
-    	</div>
-
-      <!-- RIGHT PANEL -->
+      <!-- LEFT PANEL -->
 	<div class="col-md-6">
 		<div ng-show="listMode">
 			<img src="images/browse.jpg" class="img-responsive img-browse">
@@ -189,7 +152,43 @@
       </div>
 
 	</div>
-
 </div>
+
+<!-- RIGHT PANEL -->
+  <div class="col-md-offset-1 col-md-4">
+
+    <div class="list-group">
+        <!-- SEARCH TOOL -->
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+            <input type="text" ng-model="searchContract" class="form-control" placeholder="Search">
+          </div>
+        </div>
+
+        <!-- CONTRACT LIST -->
+        <a ng-repeat="contract in contracts | filter: {title: searchContract, status: '!closed'} | orderBy: 'datetime':true" ng-href="#/contracts/{{contract.$id}}">
+          <div class="list-group-item">
+                <div class="row-picture">
+                    <img class="circle" ng-src="{{contract.gravatar}}">
+                </div>
+                <div class="row-content">
+                    <h4 class="list-group-item-heading">{{contract.title | limitTo:25}}{{ contract.title.length > 25? "..." : ""}}</h4>
+                    <span class="list-group-item-text">
+                      <span am-time-ago="contract.datetime"></span>
+                    </span>
+                </div>
+                <div class="payment">
+                  <div>${{contract.total}}</div>
+                  <span class="label status {{contract.status}}">{{contract.status}}</span>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+          </a>
+    </div>
+
+  </div>
 <div ng-include="'views/partials/_edit.html'"></div>
 <div ng-include="'views/partials/_offer.html'"></div>

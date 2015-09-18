@@ -22,15 +22,14 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 	function setSelectedContract(contract) {
 		$scope.selectedContract = contract;
 
-		// We check isContractCreator only if user signedIn
+		// Check isContractCreator only if user signedIn
 		// so we don't have to check every time normal guests open the contract
 		if($scope.signedIn()) {
 
 		// Check if the current logged in user has already made an offer for selected contract
 			Offer.isOffered(contract.$id).then(function(data) {
-				// console.log(data);
+
 				$scope.alreadyOffered = data;
-				// console.log($scope.alreadyOffered);
 			});
 
 			// Check if the current login user is the creator of selected contract

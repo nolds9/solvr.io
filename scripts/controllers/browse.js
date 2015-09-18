@@ -2,6 +2,7 @@
 
 app.controller('BrowseController', function($scope, $routeParams, toaster, Contract, Auth, Comment, Offer) {
 
+ // =========== DEFAULTS ==========
 	$scope.searchContract = '';
 	$scope.contracts = Contract.all;
 	$scope.user = Auth.user;
@@ -10,7 +11,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Contr
 
 	$scope.listMode = true;
 
-
+// ========= SHOW ==============
 
 	if($routeParams.id) {
 		var contract = Contract.getContract($routeParams.id).$asObject();

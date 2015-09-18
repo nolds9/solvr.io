@@ -26,6 +26,7 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth, Contract) {
 			if(user && user.provider) {
 				var d = $q.defer();
 
+				// created defered object to be called in the ctrl
 				$firebase(ref.child('offers').child(contractId).orderByChild("uid")
 					.equalTo(user.uid))
 					.$asArray()

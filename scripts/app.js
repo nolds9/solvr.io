@@ -9,7 +9,9 @@ var app = angular
     'toaster',
     'angularMoment'
   ])
+  // Firebase URL
   .constant('FURL', 'https://solvr.firebaseio.com/')
+  // if not authenticated, redirect to login
   .run(function($rootScope, $location){
     $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
       // Catch error thrown when the $requireAuth promise is rejected
@@ -19,6 +21,7 @@ var app = angular
       }
     });
   })
+  // -------------- ROUTES ------------
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
